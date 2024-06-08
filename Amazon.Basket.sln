@@ -3,14 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0F2BBD07-A160-4F9E-9106-A05CAEF36CA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.Basket.Api", "src\Amazon.Basket.Api\Amazon.Basket.Api.csproj", "{61FF56FD-2FFD-4286-B06A-BF794EDF05BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61FF56FD-2FFD-4286-B06A-BF794EDF05BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61FF56FD-2FFD-4286-B06A-BF794EDF05BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61FF56FD-2FFD-4286-B06A-BF794EDF05BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61FF56FD-2FFD-4286-B06A-BF794EDF05BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61FF56FD-2FFD-4286-B06A-BF794EDF05BF} = {0F2BBD07-A160-4F9E-9106-A05CAEF36CA7}
 	EndGlobalSection
 EndGlobal
