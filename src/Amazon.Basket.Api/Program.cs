@@ -1,3 +1,7 @@
+using System.Text.Json.Serialization;
+using Dapr;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -36,9 +40,24 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.MapPost("/products", [Topic("pubsub", "products")] ([FromServices] ILogger<Program> logger, Product product) => {
+    logger.LogInformation("Subscriber received: " + product);
+    return Results.Ok(product);
+});
+
+app.UseCloudEvents();
+app.MapSubscribeHandler();
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
+public record Product (
+    string id,
+    string? Name,
+    string? Description,
+    decimal? Price,
+    bool? Active);
