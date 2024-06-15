@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Dapr;
+using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,8 +41,12 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-app.MapPost("/products", [Topic("pubsub", "products")] ([FromServices] ILogger<Program> logger, Product product) => {
+app.MapPost("/products", [Topic("pubsub", "products")] async ([FromServices] ILogger<Program> logger, Product product) => {
     logger.LogInformation("Subscriber received: " + product);
+    var client = new DaprClientBuilder().Build();
+    await client.SaveStateAsync("database", product.id, product);
+    var result = await client.GetStateAsync<Product>("database", product.id);
+    logger.LogInformation("Subscriber saved: " + result);
     return Results.Ok(product);
 });
 
