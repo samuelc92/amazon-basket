@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basket-app-deployment
+  labels:
+    app: basket-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: basket-app
+  template:
+    metadata:
+      labels:
+        app: basket-app
+    spec:
+      containers:
+      - name: basket-app
+        image: docker.io/library/amazonbasketapi:dev
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: basket-app-service
+spec:
+  selector:
+    app: basket-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
